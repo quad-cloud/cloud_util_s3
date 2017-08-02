@@ -10,7 +10,7 @@ logging.basicConfig(
 
 
 def main():
-  s3_upload("C:/Users/vamshi/Desktop/wordpress.txt","cc-sample-bucket","test333.txt")
+  s3_upload("C:/Users/vamshi/Desktop/wordpress.txt","cc-sample-bucket","test333.txt", {'ServerSideEncryption': "AES256"})
   file_validation("C:/Users/vamshi/Desktop/wordpress.txt")
 
 
@@ -19,12 +19,13 @@ def file_validation(path):
     logging.debug(status)
 
 
-def s3_upload(template_file, bucket_name, key_name):
-    s3_client.upload_file(template_file, bucket_name, key_name)
+def s3_upload(template_file, bucket_name, key_name, extra_args):
+    s3_client.upload_file(template_file, bucket_name, key_name, extra_args)
 
 
 s3_client = boto3.client("s3")
 
 if __name__ == "__main__":
     main()
+
 
